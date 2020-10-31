@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'payroll.apps.PayrollConfig'
+    'payroll.apps.PayrollConfig',
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [
