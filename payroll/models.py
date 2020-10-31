@@ -4,14 +4,14 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
 class Department(models.Model):
-    dept_name = models.CharField(blank = False, help_text="The department to which the employee belongs")
+    dept_name = models.CharField(blank = False, help_text="The department to which the employee belongs", max_length=100)
     base_salary = models.IntegerField(default=0, help_text="the base salary of employees in this department or project")
 
     def __str__(self):
         return self.dept_name
     
 class Post(models.Model):
-    post_name = models.CharField(blank = False, help_text="The employees post")
+    post_name = models.CharField(blank = False, help_text="The employees post", max_length=100)
     base_salary = models.IntegerField(default=0, help_text="the base salary of employees having this post regardless of the department")
 
     def __str__(self):
@@ -19,7 +19,7 @@ class Post(models.Model):
 
 class Leave(models.Model):
     date = models.DateField(help_text="date of leave")
-    reason = models.CharField(help_text="reason of leave", blank = False)
+    reason = models.CharField(help_text="reason of leave", blank = False, max_length=255)
     user = models.ForeignKey(User,null=False,on_delete=models.CASCADE)
   
 
@@ -35,7 +35,7 @@ class Holiday(models.Model):
 
 class Employee(models.Model):
     user=models.OneToOneField(User,null=True,on_delete=models.CASCADE)
-	profile_pic=models.ImageField(upload_to='images/profile', blank = True, default = 'images/profile/default2.jpeg')
+    profile_pic=models.ImageField(upload_to='images/profile', blank = True, default='images/profile/default2.jpeg')
     phone=PhoneNumberField(blank = False)
     Address=models.TextField(blank = True, max_length=255)
 
