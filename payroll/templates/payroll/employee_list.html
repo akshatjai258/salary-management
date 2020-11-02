@@ -1,0 +1,18 @@
+{% extends 'main/base_layout.html' %}
+
+{% block title %}
+Employee List
+{% endblock %}
+
+{% block content %}
+<h2>Employee list</h2>
+
+<ul>
+
+{% for employee in employees %}
+ <li><a href = "{% url 'view_each' pk=employee.id %}">{{employee.full_name}}</a></li>
+
+{% endfor %}
+</ul>
+
+{% endblock %}

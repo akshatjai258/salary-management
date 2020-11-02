@@ -4,4 +4,5 @@ from django.contrib import messages
 
 
 def home(request):
-    return render(request, "main/homepage.html")
+    # print("called home view")
+    return render(request, 'main/homepage.html')
