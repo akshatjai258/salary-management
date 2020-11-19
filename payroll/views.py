@@ -7,20 +7,41 @@ from django.urls import reverse_lazy, reverse
 from django.contrib.auth.models import User, auth
 from django.contrib.auth.forms import UserCreationForm
 from .models import Department, Post, Leave, Holiday, Employee
+from django.views.generic import TemplateView,CreateView
+from .forms import *
 
-def register(request):
-    if request.method == "POST":
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Successfully registered")
-            return redirect("/")
-        
-    else:
-        form = UserCreationForm()
+class SignUpView(TemplateView):
+    template_name = 'registration/signup.html'
 
-    return render(request,'payroll/register.html',{'form':form})
 
+class EmployeeSignUpView(CreateView):
+    model = User
+    form_class = EmployeeSignUpForm
+    template_name = 'registration/signup_form.html'
+
+    def get_context_data(self, **kwargs):
+        kwargs['user_type'] = 'employee'
+        return super().get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('home')
+
+
+class HrSignUpView(CreateView):
+    model = User
+    form_class = HrSignUpForm
+    template_name = 'registration/signup_form.html'
+
+    def get_context_data(self, **kwargs):
+        kwargs['user_type'] = 'hr'
+        return super().get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('home')
 
 def signin(request):
     if request.method == "POST":
@@ -38,10 +59,10 @@ def signin(request):
     else:
         return render(request,'payroll/login.html')
 
-def signout(request):
-    auth.logout(request)
-    messages.info(request, "successfuly logged out")
-    return redirect("/")
+def handelLogout(request):
+    logout(request)
+    messages.success(request, "Successfully logged out")
+    return redirect('home')
 
 def view_list(request):
     employees = Employee.objects.all()
