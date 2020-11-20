@@ -18,11 +18,16 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
+from payroll.views import SignUpView,EmployeeSignUpView,HrSignUpView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('payroll/', include('payroll.urls')),
     path('', views.home, name='home'),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/signup/', SignUpView.as_view(), name='signup'),
+    path('accounts/signup/student/', EmployeeSignUpView.as_view(), name='employee_signup'),
+    path('accounts/signup/teacher/', HrSignUpView.as_view(), name='hr_signup'),
     
 ]
 

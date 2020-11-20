@@ -1,8 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
+
+class User(AbstractUser):
+    is_employee = models.BooleanField(default=False)
+    is_hr = models.BooleanField(default=False)
+
+
 class Department(models.Model):
     dept_name = models.CharField( help_text="The department to which the employee belongs", max_length=100)
     base_salary = models.IntegerField(default=0, help_text="the base salary of employees in this department or project")
