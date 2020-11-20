@@ -10,6 +10,13 @@ from .models import Department, Post, Leave, Holiday, Employee
 from django.views.generic import TemplateView,CreateView
 from .forms import *
 
+
+
+
+
+
+
+
 class SignUpView(TemplateView):
     template_name = 'registration/signup.html'
 

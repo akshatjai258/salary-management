@@ -9,6 +9,7 @@ from .models import ( User,Employee)
 class HrSignUpForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
+        fields='__all__'
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -22,6 +23,7 @@ class EmployeeSignUpForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = User
+        fields='__all__'
 
     @transaction.atomic
     def save(self):
