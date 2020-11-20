@@ -42,3 +42,6 @@ class Employee(models.Model):
     department = models.ForeignKey(Department,null=True,on_delete=models.CASCADE)
     post = models.ForeignKey(Post,null=True,on_delete=models.CASCADE)
 
+class Salary(models.Model):
+    user = models.ForeignKey(User,null=True,on_delete=models.CASCADE)
+
