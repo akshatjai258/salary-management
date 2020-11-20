@@ -49,6 +49,20 @@ class Employee(models.Model):
     department = models.ForeignKey(Department,null=True,on_delete=models.CASCADE)
     post = models.ForeignKey(Post,null=True,on_delete=models.CASCADE)
 
-class Salary(models.Model):
-    user = models.ForeignKey(User,null=True,on_delete=models.CASCADE)
+class Contact(models.Model):
+	sno=models.AutoField(primary_key=True)
+	name=models.CharField(max_length=250)
+	email=models.CharField(max_length=250)
+	content=models.CharField(max_length=300)
+	
+	
+	def __str__(self):
+		return "message from "+self.name
 
+class hrProfile(models.Model):
+    user=models.OneToOneField(User,null=True,on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=50,null = True)
+    profile_pic=models.ImageField(upload_to='images/profile', blank = True, default='images/profile/default2.jpeg')
+    phone=PhoneNumberField(blank = True)
+    address=models.TextField(blank = True, max_length=255)
+    department = models.ForeignKey(Department,null=True,on_delete=models.CASCADE)
