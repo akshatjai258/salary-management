@@ -79,14 +79,21 @@ WSGI_APPLICATION = 'salaryManagement.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'Salary',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#         'USER': 'admin',
+#         'PASSWORD': 'newpassword',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Salary',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-        'USER': 'root',
-        'PASSWORD': 'newpassword',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -140,3 +147,10 @@ MEDIA_URL = '/media/'
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 LOGIN_REDIRECT_URL = 'home'
+
+AUTH_USER_MODEL = 'payroll.User'
+
+# GRAPH_MODELS = {
+#   'all_applications': True,
+#   'group_models': True,
+# }
