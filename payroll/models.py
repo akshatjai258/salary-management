@@ -58,3 +58,11 @@ class Contact(models.Model):
 	
 	def __str__(self):
 		return "message from "+self.name
+
+class hrProfile(models.Model):
+    user=models.OneToOneField(User,null=True,on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=50,null = True)
+    profile_pic=models.ImageField(upload_to='images/profile', blank = True, default='images/profile/default2.jpeg')
+    phone=PhoneNumberField(blank = True)
+    address=models.TextField(blank = True, max_length=255)
+    department = models.ForeignKey(Department,null=True,on_delete=models.CASCADE)

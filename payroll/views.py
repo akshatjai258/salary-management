@@ -6,8 +6,8 @@ from django.views.generic import DetailView, CreateView, UpdateView
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.models import User, auth
 from django.contrib.auth.forms import UserCreationForm
-from .models import Department, Post, Leave, Holiday, Employee
-from django.views.generic import TemplateView,CreateView
+from .models import Department, Post, Leave, Holiday, Employee,hrProfile
+from django.views.generic import TemplateView,CreateView,DetailView
 from .forms import *
 
 
@@ -49,6 +49,28 @@ class HrSignUpView(CreateView):
         user = form.save()
         login(self.request, user)
         return redirect('home')
+
+
+def HrProfile(request,pk):
+    hrprofile=get_object_or_404(hrProfile,id=pk)
+  
+    context={
+        'hrprofile':hrprofile,
+    }
+    return render(request,'profile/hrProfile.html',context)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def signin(request):
     if request.method == "POST":
