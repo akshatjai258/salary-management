@@ -7,9 +7,15 @@ from .models import ( User,Employee,hrProfile)
 
 
 class HrSignUpForm(UserCreationForm):
+    
+    phone_number = forms.CharField(max_length=12,null=True,blank=True)
+    address=forms.CharField(blank = True, max_length=255)
+    company_name = forms.CharField(max_length=255,blank=True,null=True)
+    year_of_registration = forms.DateField(null=True)
+    
     class Meta(UserCreationForm.Meta):
         model = User
-        fields=['first_name','last_name','username','email','password1','password2']
+        fields=['first_name','last_name','username','email','password1','password2','phone_number','address','company_name','year_of_registration']
 
     @transaction.atomic
     def save(self):
