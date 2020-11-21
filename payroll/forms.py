@@ -34,3 +34,18 @@ class EmployeeSignUpForm(UserCreationForm):
         employee = Employee.objects.create(user=user)
         return user
 
+class UserUpdateForm(forms.ModelForm):
+	
+  email = forms.EmailField()
+  first_name=forms.CharField()
+  last_name=forms.CharField()	
+  class Meta:
+      model = User
+      fields = ['username', 'email','first_name','last_name']
+
+class EmplyeeUpdateForm(forms.ModelForm):
+	profile_pic = forms.ImageField(widget=forms.FileInput,)
+	class Meta:
+		model = Employee
+		fields = ['profile_pic','phone','address']
+
