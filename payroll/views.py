@@ -10,6 +10,7 @@ from .models import Department, Post, Leave, Holiday, Employee,hrProfile
 from django.views.generic import TemplateView,CreateView,DetailView
 from .forms import *
 
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -55,20 +56,32 @@ def HrProfile(request,pk):
     hrprofile=get_object_or_404(hrProfile,id=pk)
   
     context={
-        'hrprofile':hrprofile,
+        'hr':hrprofile,
     }
     return render(request,'profile/hrProfile.html',context)
 
 
+@login_required
+# def profile(request):
+#   if request.method == 'POST':
+#       u_form = UserUpdateForm(request.POST, instance=request.user)
+#       d_form = EmployeeUpdateForm(request.POST,request.FILES,instance=request.user.doctor)
+#       if u_form.is_valid() and d_form.is_valid():
+#           u_form.save()
+#           d_form.save()
+#           messages.success(request, f'Your account has been updated!')
+#           return redirect("home")
 
+#   else:
+#       u_form = UserUpdateForm(instance=request.user)
+#       d_form = UpdateProfileForm(instance=request.user.doctor)
 
+#   context = {
+#       'u_form': u_form,
+#       'd_form': d_form
+#   }
 
-
-
-
-
-
-
+#   return render(request, 'profile/editemployee.html', context)
 
 
 
@@ -97,6 +110,6 @@ def view_list(request):
     employees = Employee.objects.all()
     return render(request,'payroll/employee_list.html',{'employees':employees})
 
-def view_each(request,pk):
+def EmployeeProfile(request,pk):
     employee = Employee.objects.get(id=pk)
     return render(request,'payroll/employee_each.html',{'employee':employee})
