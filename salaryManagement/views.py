@@ -1,9 +1,14 @@
 from django.shortcuts import render,redirect, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib import messages
 from payroll.models import Contact
-
+from django.urls import reverse_lazy, reverse
 def home(request):
+	if request.user.is_authenticated and request.user.is_hr:
+		return HttpResponseRedirect((reverse('HrProfile',kwargs={'pk':request.user.hrprofile.id})))
+	elif request.user.is_authenticated and request.user.is_employee:
+		return HttpResponseRedirect((reverse('EmployeeProfile',kwargs={'pk':request.user.employee.id})))
+
 	return render(request,'main/home.html')
 	
 def about(request):
