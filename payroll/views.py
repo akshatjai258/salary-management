@@ -6,9 +6,10 @@ from django.views.generic import DetailView, CreateView, UpdateView
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.models import User, auth
 from django.contrib.auth.forms import UserCreationForm
-from .models import Department, Post, Leave, Holiday, Employee,hrProfile
+from .models import Leave, Holiday, Employee,hrProfile,Contact
 from django.views.generic import TemplateView,CreateView,DetailView
 from .forms import *
+
 
 from django.contrib.auth.decorators import login_required
 
@@ -61,7 +62,6 @@ def HrProfile(request,pk):
     return render(request,'profile/hrProfile.html',context)
 
 
-@login_required
 # def profile(request):
 #   if request.method == 'POST':
 #       u_form = UserUpdateForm(request.POST, instance=request.user)
@@ -113,3 +113,4 @@ def view_list(request):
 def EmployeeProfile(request,pk):
     employee = Employee.objects.get(id=pk)
     return render(request,'payroll/employee_each.html',{'employee':employee})
+
