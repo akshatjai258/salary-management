@@ -33,17 +33,27 @@
           {% csrf_token %}
           <div class="fgr">
           <div class="row mt-3">
-          <div class="col-md-6 col-xs-12 col-sm-12 form-group">{{form.first_name}}</div>
-          <div class="col-md-6 col-xs-12 col-sm-12 form-group">{{form.last_name}}</div>
-        </div>
-        <div class="row mt-3">
           <div class="col-md-6 col-xs-12 col-sm-12 form-group">{{form.username}}</div>
-          <div class="col-md-6 col-xs-12 col-sm-12 form-group">{{form.email}}</div>
+          <div class="col-md-6 col-xs-12 col-sm-12 form-group">{{form.email}}</div>          
         </div>
         <div class="row mt-3">
           <div class="col-md-6 col-xs-12 col-sm-12 form-group">{{form.password1}}</div>
           <div class="col-md-6 col-xs-12 col-sm-12 form-group">{{form.password2}}</div>
         </div>
+        <div class="row mt-3">
+          <div class="col-md-6 col-xs-12 col-sm-12 form-group">{{form.first_name}}</div>
+          <div class="col-md-6 col-xs-12 col-sm-12 form-group">{{form.last_name}}</div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-md-6 col-xs-12 col-sm-12 form-group">{{form.company_name}}</div>
+          <div class="col-md-6 col-xs-12 col-sm-12 form-group">{{form.year_of_registration}}</div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-md-6 col-xs-12 col-sm-12 form-group">{{form.address}}</div>
+          <div class="col-md-6 col-xs-12 col-sm-12 form-group">{{form.phone_number}}</div>
+        </div>
+        
       </div>
         
           <div class="form-group">
@@ -76,12 +86,12 @@
 
   //Query All input fields
   var form_fields = document.getElementsByTagName("input");
-  form_fields[1].placeholder = "First Name";
-  form_fields[2].placeholder = "Last Name";
-  form_fields[3].placeholder = "Username..";
-  form_fields[4].placeholder = "Email..";
-  form_fields[5].placeholder = "Enter password...";
-  form_fields[6].placeholder = "Re-enter Password...";
+  // form_fields[1].placeholder = "First Name";
+  // form_fields[2].placeholder = "Last Name";
+  // form_fields[3].placeholder = "Username..";
+  // form_fields[4].placeholder = "Email..";
+  // form_fields[5].placeholder = "Enter password...";
+  // form_fields[6].placeholder = "Re-enter Password...";
 
   for (var field in form_fields) {
     form_fields[field].className += " form-control";
