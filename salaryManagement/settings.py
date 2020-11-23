@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'payroll.apps.PayrollConfig',
     'phonenumber_field',
     'crispy_forms',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

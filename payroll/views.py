@@ -9,10 +9,10 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Leave, Holiday, Employee,hrProfile,Contact
 from django.views.generic import TemplateView,CreateView,DetailView
 from .forms import *
-
-
+from .filters import *
+from .templatetags import doctor_extras
 from django.contrib.auth.decorators import login_required
-
+from django.core.paginator import Paginator
 
 
 
@@ -107,8 +107,15 @@ def handelLogout(request):
     return redirect('home')
 
 def view_list(request):
-    employees = Employee.objects.all()
-    return render(request,'payroll/employee_list.html',{'employees':employees})
+    employees=Employee.objects.all()
+    myFilter1=search_doctor(request.GET,queryset=employees)
+
+    employees=myFilter1.qs
+    paginated_list=Paginator(employees,2)
+    page_number=request.GET.get('page')
+    employee_page_obj=paginated_list.get_page(page_number)
+    context={'employees':employees,'myFilter1':myFilter1,'employee_page_obj':employee_page_obj}
+    return render(request,'payroll/employee_list.html',context)
 
 def EmployeeProfile(request,pk):
     employee = Employee.objects.get(id=pk)
