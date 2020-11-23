@@ -42,11 +42,6 @@ class hrProfile(models.Model):
   
 class Employee(models.Model):
     
-    GENDER_CHOICES = (
-        ('Male', 'Male'),
-        ('Female', 'Female'),
-        ('Other', 'Other')
-    )
     
     
     user=models.OneToOneField(User,null=True,on_delete=models.CASCADE)
@@ -55,7 +50,6 @@ class Employee(models.Model):
     profile_pic=models.ImageField(upload_to='images/profile', blank = True, default='images/profile/default2.jpeg')
     phone_number = models.CharField(max_length=12,null=True,blank=True)
     address=models.TextField(blank = True, max_length=255,null=True)
-    gender = models.CharField(max_length=10, choices=GENDER_CHOICES,null=True)
     post = models.CharField(max_length=50,null = True)
     department = models.CharField(max_length=50,null=True)
     epf_deduction = models.IntegerField(default=0)

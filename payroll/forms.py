@@ -80,13 +80,6 @@ class HrCreationForm(forms.Form):
         self.fields['last_name'].widget.attrs['placeholder'] = 'admin last name'
 
 
-GENDER_CHOICES = (
-        ('Male', 'Male'),
-        ('Female', 'Female'),
-        ('Other', 'Other')
-    )
-
-
 
 class EmployeeCreationForm(forms.Form):
     first_name = forms.CharField(max_length=255)
@@ -94,19 +87,17 @@ class EmployeeCreationForm(forms.Form):
     phone_number = forms.CharField(max_length=12)
     post = forms.CharField(max_length=50)
     department = forms.CharField(max_length=50)
-    epf_deduction = forms.IntegerField(initial=0)
-    esi_deduction = forms.IntegerField(initial=0)
-    allowances_per_month = forms.IntegerField(initial=0)
-    base_salary = forms.IntegerField(initial=0)
+    epf_deduction = forms.IntegerField()
+    esi_deduction = forms.IntegerField()
+    allowances_per_month = forms.IntegerField()
+    base_salary = forms.IntegerField()
     username = forms.CharField(max_length=255)
     password1 = forms.CharField(widget=forms.PasswordInput)
     password2 = forms.CharField(widget=forms.PasswordInput)
     email = forms.EmailField()
-    gender = forms.ChoiceField(choices = GENDER_CHOICES)
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['username'].widget.attrs['placeholder'] = 'emplayee username'
+        self.fields['username'].widget.attrs['placeholder'] = 'employee username'
         self.fields['password1'].widget.attrs['placeholder'] = 'password'
         self.fields['password2'].widget.attrs['placeholder'] = 'Retype password'
         self.fields['email'].widget.attrs['placeholder'] = 'employee mail-id'
