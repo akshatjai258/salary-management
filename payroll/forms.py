@@ -101,7 +101,6 @@ class EmployeeCreationForm(forms.Form):
         self.fields['password1'].widget.attrs['placeholder'] = 'password'
         self.fields['password2'].widget.attrs['placeholder'] = 'Retype password'
         self.fields['email'].widget.attrs['placeholder'] = 'employee mail-id'
-        self.fields['gender'].widget.attrs['placeholder'] = 'gender'
         self.fields['phone_number'].widget.attrs['placeholder'] = 'employee phone number'
         self.fields['post'].widget.attrs['placeholder'] = 'employee post/job'
         self.fields['department'].widget.attrs['placeholder'] = 'department of employee'

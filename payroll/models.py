@@ -41,8 +41,7 @@ class hrProfile(models.Model):
 
   
 class Employee(models.Model):
-    
-    
+       
     user=models.OneToOneField(User,null=True,on_delete=models.CASCADE)
     parent_hr = models.ForeignKey(hrProfile,null=True,on_delete=models.CASCADE)
     full_name = models.CharField(max_length=50,null = True)
