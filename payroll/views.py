@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth  import authenticate,  login, logout
 from django.views.generic import DetailView, CreateView, UpdateView
 from django.urls import reverse_lazy, reverse
-from django.contrib.auth.models import User, auth
+from django.contrib.auth.models import auth
 from django.contrib.auth.forms import UserCreationForm
 from .models import Leave, Holiday, Employee,hrProfile,Contact
 from django.views.generic import TemplateView,CreateView,DetailView
@@ -13,6 +13,10 @@ from .filters import *
 from .templatetags import doctor_extras
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+
+from django.contrib.auth import get_user_model
+
+User = get_user_model
 
 
 
@@ -203,6 +207,8 @@ def EmployeeSignup(request):
                         user = User.objects.create_user(username=username,password=password1,email=email,first_name=first_name,last_name=last_name,is_employee=True)
                         user.save()
                         current_hr = request.user
+                        parent_hr = current_hr.hrProfile
+                        employee = Employee(user = user,full_name=full_name,phone_number=phone_number,parent_hr=parent_hr,epf_deduction=epf_deduction,esi_deduction=esi_deduction)
                         
 
 
