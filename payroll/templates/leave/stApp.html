@@ -1,0 +1,38 @@
+{% extends 'main/base_layout.html' %}
+
+{% load crispy_forms_tags %}
+
+
+{% block body %}
+
+{{user.username}} write you application :
+
+
+<div class="row box2">
+
+	<div class="col-md-5 box1">
+
+	<center><h1 style="font-family:bold;color:black;margin-bottom:50px">You Leave Application </h1></center>
+	<br>
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-success">Submit Application</button>
+      </form>
+
+    </div>
+
+</div>
+
+<script>
+
+
+    var name="{{user.hrProfile}}"
+    document.getElementById("to_hrr").value=name;
+
+
+</script>
+
+{% endblock %}

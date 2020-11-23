@@ -4,7 +4,7 @@ from django.db import transaction
 from django.forms.utils import ValidationError
 from django.contrib.admin.widgets import AdminDateWidget
 
-from .models import ( User,Employee,hrProfile)
+from .models import ( User,Employee,hrProfile,Leave )
 
 
 class HrSignUpForm(UserCreationForm):
@@ -111,3 +111,15 @@ class EmployeeCreationForm(forms.Form):
         self.fields['first_name'].widget.attrs['placeholder'] = 'employee first name'
         self.fields['last_name'].widget.attrs['placeholder'] = 'employee last name'
 
+class StdLeaveAppForm(forms.ModelForm):
+    class Meta:
+        model = Leave
+
+        fields = ('reason', 'date','to_hr')
+
+        widgets = {
+
+            'reason': forms.TextInput,
+            'to_hr':forms.TextInput(attrs={'class':'form-control','placeholder':'username','id':'to_hrr','type':'hidden'}),
+
+        }

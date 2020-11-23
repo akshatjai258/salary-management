@@ -123,7 +123,7 @@ def view_list(request):
 
 def EmployeeProfile(request,pk):
     employee = Employee.objects.get(id=pk)
-    return render(request,'payroll/employee_each.html',{'employee':employee})
+    return render(request,'profile/employeeProfile.html',{'employee':employee})
 
 
 def HrSignup(request):
@@ -208,6 +208,7 @@ def EmployeeSignup(request):
                         current_hr = request.user
                         parent_hr = current_hr.hrprofile
                         employee = Employee(user = user,full_name=full_name,phone_number=phone_number,parent_hr=parent_hr,epf_deduction=epf_deduction,esi_deduction=esi_deduction,department=department,post=post,allowances_per_month=allowances_per_month,base_salary=base_salary,)
+                        employee.save()
                         messages.success(request,'employee added sucessfully')
                         print("employee added")
                     
@@ -231,15 +232,68 @@ def EmployeeSignup(request):
                         
 
 
+def LeaveList(request):
+    leaves=Leave.objects.all()
+    # print(f"{leaves}gggggggggggggggggggggggggggggg")
+    return render(request,'payroll/Leave.html',{'leaves':leaves})
 
 
+
+def Stpage(request):
+
+    employee = Employee.objects.filter(user=request.user).first()
+
+
+    return render(request,'leave/stpage.html')
 
                 
                 
+def StLeaveApp(request):
 
+    form = StdLeaveAppForm(request.POST)
+    
+    employee = Employee.objects.filter(user=request.user).first()
+
+    if form.is_valid():
+        form.instance.user=employee.user
+        form.save()
+
+    context = {'form':form}
+
+    return render(request,'leave/stApp.html',context)
             
         
+def Tpage(request):
 
+    context = locals()
+
+    return render(request,'leave/tpage.html',context)
+
+
+def ShowApp(request): 
+    
+    hr = hrProfile.objects.filter(user=request.user).first()
+    app = Leave.objects.filter(to_hr = hr).all()
+    print(app)
+    
+    app2 = Leave.objects.filter(id=request.POST.get('answer')).all()
+
+    for items in app2:
+
+        items.status = request.POST.get('status')
+        items.save()
+
+    context = { 'app':app }
+
+    return render(request,'leave/ShowApp.html',context)
         
-       
-       
+
+def StatusOfApp(request):
+
+    employee = Employee.objects.filter(user=request.user).first()
+
+    app = Leave.objects.filter(user=employee.user).all()
+
+    context = { 'app':app }
+
+    return render(request,'leave/AppStatus.html',context)
