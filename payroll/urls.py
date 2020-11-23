@@ -26,7 +26,11 @@ urlpatterns = [
     path('view_list/',views.view_list,name='view_list'),
     path('employee/<int:pk>',views.EmployeeProfile,name='EmployeeProfile'),
     path('hrprofile/<int:pk>',views.HrProfile,name='HrProfile'),
-    path('leaves',views.LeaveList,name='LeaveList'),
+    path('takeleave',views.Stpage ,name='takeleave'),
+    path('fillleave',views.StLeaveApp,name='fill_leave'),
+    path('viewleave',views.Tpage ,name='view_leave'),
+    path('Showapp',views.ShowApp,name='Showapp'),
+    path('leave_response',views.StatusOfApp,name='leave_response'),
     # path('edit_profile/', views.profile, name='edit_profile'),
     
 ]
