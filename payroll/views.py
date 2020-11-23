@@ -9,6 +9,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Leave, Holiday, Employee,hrProfile,Contact
 from django.views.generic import TemplateView,CreateView,DetailView
 from .forms import *
+ 
 
 
 from django.contrib.auth.decorators import login_required
@@ -161,7 +162,46 @@ def HrSignup(request):
             return redirect('hr_signup')
 
 def EmployeeSignup(request):
-    pass
+    if request.user.is_authenticated:
+        if request.method == 'GET':
+            form = EmployeeCreationForm()
+            return render(request,'registration/signup_employee.html',{'form':form})
+        else:
+            form = EmployeeCreationForm()
+            
+            if form.is_valid():
+                username = form.cleaned_data["username"]
+                email = form.cleaned_data["email"]
+                password1 = form.cleaned_data["password1"]
+                password2 = form.cleaned_data["password2"]
+                phone_number = form.cleaned_data["phone_number"]
+                first_name = form.cleaned_data["first_name"]
+                last_name = form.cleaned_data["last_name"]
+                full_name = str(first_name)+" "+str(last_name)
+                post = form.cleaned_data["post"]
+                department = form.cleaned_data["department"]
+                epf_deduction = form.cleaned_data["epf_deduction"]
+                esi_deduction = form.cleaned_data["esi_deduction"]
+                allowances_per_month = form.cleaned_data["allowances_per_month"]
+                base_salary = form.cleaned_data["base_salary"]
+                gender = form.cleaned_data["gender"]
+
+                if password1 == password2:
+                    if User.objects.filter(username = username).exists():
+                        messages.info(request,"username already taken")
+                        return redirect('employee_signup')
+                    elif User.objects.filter(email = email).exists():
+                        messages.info(request,"email already taken")
+                        return redirect('employee_signup')
+                    else:
+                        user = User.objects.create_user(username=username,password=password1,email=email,first_name=first_name,last_name=last_name,is_employee=True)
+                        user.save()
+                        current_hr = request.user
+                        
+
+
+
+
 
                 
                 

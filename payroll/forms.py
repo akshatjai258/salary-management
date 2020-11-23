@@ -52,12 +52,6 @@ class EmplyeeUpdateForm(forms.ModelForm):
 		fields = ['profile_pic','phone_number','address']
 
 
-GENDER_CHOICES = (
-        ('Male', 'Male'),
-        ('Female', 'Female'),
-        ('Other', 'Other')
-    )
-
 YEARS= [x for x in range(1940,2021)]
 
 class HrCreationForm(forms.Form):
@@ -86,4 +80,44 @@ class HrCreationForm(forms.Form):
         self.fields['last_name'].widget.attrs['placeholder'] = 'admin last name'
 
 
+GENDER_CHOICES = (
+        ('Male', 'Male'),
+        ('Female', 'Female'),
+        ('Other', 'Other')
+    )
+
+
+
+class EmployeeCreationForm(forms.Form):
+    first_name = forms.CharField(max_length=255)
+    last_name = forms.CharField(max_length=255)
+    phone_number = forms.CharField(max_length=12)
+    post = forms.CharField(max_length=50)
+    department = forms.CharField(max_length=50)
+    epf_deduction = forms.IntegerField(initial=0)
+    esi_deduction = forms.IntegerField(initial=0)
+    allowances_per_month = forms.IntegerField(initial=0)
+    base_salary = forms.IntegerField(initial=0)
+    username = forms.CharField(max_length=255)
+    password1 = forms.CharField(widget=forms.PasswordInput)
+    password2 = forms.CharField(widget=forms.PasswordInput)
+    email = forms.EmailField()
+    gender = forms.ChoiceField(choices = GENDER_CHOICES)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs['placeholder'] = 'emplayee username'
+        self.fields['password1'].widget.attrs['placeholder'] = 'password'
+        self.fields['password2'].widget.attrs['placeholder'] = 'Retype password'
+        self.fields['email'].widget.attrs['placeholder'] = 'employee mail-id'
+        self.fields['gender'].widget.attrs['placeholder'] = 'gender'
+        self.fields['phone_number'].widget.attrs['placeholder'] = 'employee phone number'
+        self.fields['post'].widget.attrs['placeholder'] = 'employee post/job'
+        self.fields['department'].widget.attrs['placeholder'] = 'department of employee'
+        self.fields['epf_deduction'].widget.attrs['placeholder'] = 'EPF deduction (if any)'
+        self.fields['esi_deduction'].widget.attrs['placeholder'] = 'ESI deduction (if any)'
+        self.fields['allowances_per_month'].widget.attrs['placeholder'] = 'Allowances (if any)'
+        self.fields['base_salary'].widget.attrs['placeholder'] = 'Base salary of employee'
+        self.fields['first_name'].widget.attrs['placeholder'] = 'employee first name'
+        self.fields['last_name'].widget.attrs['placeholder'] = 'employee last name'
 

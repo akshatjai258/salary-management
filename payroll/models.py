@@ -14,6 +14,8 @@ class Leave(models.Model):
     date = models.DateField(help_text="date of leave")
     reason = models.CharField(help_text="reason of leave", max_length=255)
     user = models.ForeignKey(User,null=True,on_delete=models.CASCADE)
+    accepted = models.BooleanField(default=False)
+    rejected = models.BooleanField(default=False)
   
         
 
