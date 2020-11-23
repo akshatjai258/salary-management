@@ -150,10 +150,10 @@ def HrSignup(request):
             if password1 == password2:
                 if User.objects.filter(username = username).exists():
                     messages.info(request,"username already taken")
-                    return redirect('hr_signup')
+                    return render(request,'registration/signup_form.html',{'form':form})
                 elif User.objects.filter(email = email).exists():
                     messages.info(request,"email already taken")
-                    return redirect('hr_signup')
+                    return render(request,'registration/signup_form.html',{'form':form})
                 else:
                     user = User.objects.create_user(username=username,password=password1,email=email,first_name=first_name,last_name=last_name,is_hr=True)   
                     user.save()
@@ -164,12 +164,12 @@ def HrSignup(request):
 
                 return redirect('login')
             else:
-                messages.info(request,"email already taken")
-                return redirect('hr_signup')
+                messages.info(request,"enter same password for both fields")
+                return render(request,'registration/signup_form.html',{'form':form})
         
         else :
             messages.info(request,"please make sure you have filled all the fields correctly")
-            return redirect('hr_signup')
+            return render(request,'registration/signup_form.html',{'form':form})
 
 def EmployeeSignup(request):
     if request.user.is_authenticated:
@@ -177,7 +177,7 @@ def EmployeeSignup(request):
             form = EmployeeCreationForm()
             return render(request,'registration/signup_employee.html',{'form':form})
         else:
-            form = EmployeeCreationForm()
+            form = EmployeeCreationForm(request.POST)
             
             if form.is_valid():
                 username = form.cleaned_data["username"]
@@ -194,21 +194,40 @@ def EmployeeSignup(request):
                 esi_deduction = form.cleaned_data["esi_deduction"]
                 allowances_per_month = form.cleaned_data["allowances_per_month"]
                 base_salary = form.cleaned_data["base_salary"]
-                gender = form.cleaned_data["gender"]
 
                 if password1 == password2:
                     if User.objects.filter(username = username).exists():
                         messages.info(request,"username already taken")
-                        return redirect('employee_signup')
+                        return render(request,'registration/signup_employee.html',{'form':form})
                     elif User.objects.filter(email = email).exists():
                         messages.info(request,"email already taken")
-                        return redirect('employee_signup')
+                        return render(request,'registration/signup_employee.html',{'form':form})
                     else:
                         user = User.objects.create_user(username=username,password=password1,email=email,first_name=first_name,last_name=last_name,is_employee=True)
                         user.save()
                         current_hr = request.user
-                        parent_hr = current_hr.hrProfile
-                        employee = Employee(user = user,full_name=full_name,phone_number=phone_number,parent_hr=parent_hr,epf_deduction=epf_deduction,esi_deduction=esi_deduction)
+                        parent_hr = current_hr.hrprofile
+                        employee = Employee(user = user,full_name=full_name,phone_number=phone_number,parent_hr=parent_hr,epf_deduction=epf_deduction,esi_deduction=esi_deduction,department=department,post=post,allowances_per_month=allowances_per_month,base_salary=base_salary,)
+                        messages.success(request,'employee added sucessfully')
+                        print("employee added")
+                    
+                    return redirect('login')
+
+                else:
+                    messages.info(request,"enter same password for both fields")
+                    return render(request,'registration/signup_employee.html',{'form':form})
+            
+            else :
+                messages.info(request,"please make sure you have filled all the fields correctly")
+                return render(request,'registration/signup_employee.html',{'form':form})
+    
+    else:
+
+        messages.info(request,"please be logged in as a company admin to add employees")
+        return redirect('login')
+
+
+
                         
 
 
