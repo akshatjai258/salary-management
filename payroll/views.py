@@ -231,7 +231,10 @@ def EmployeeSignup(request):
                         
 
 
-
+def LeaveList(request):
+    leaves=Leave.objects.all()
+    # print(f"{leaves}gggggggggggggggggggggggggggggg")
+    return render(request,'payroll/Leave.html',{'leaves':leaves})
 
 
                 

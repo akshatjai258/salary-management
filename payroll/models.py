@@ -16,7 +16,8 @@ class Leave(models.Model):
     user = models.ForeignKey(User,null=True,on_delete=models.CASCADE)
     accepted = models.BooleanField(default=False)
     rejected = models.BooleanField(default=False)
-  
+    def __str__(self):
+	    return self.reason
         
 
 class Contact(models.Model):
@@ -37,6 +38,9 @@ class hrProfile(models.Model):
     address=models.TextField(blank = True, max_length=255)
     company_name = models.CharField(max_length=255,blank=True,null=True)
     year_of_registration = models.DateField(null=True)
+
+    def __str__(self):
+	    return self.full_name
     
 
   
@@ -58,6 +62,9 @@ class Employee(models.Model):
     base_salary = models.IntegerField(default=0)
     date_of_birth = models.DateField(null=True)
     date_of_joining = models.DateField(null=True)
+
+    def __str__(self):
+        return self.full_name
 
 
 class Holiday(models.Model):

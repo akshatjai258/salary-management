@@ -43,15 +43,15 @@
           <li>
             <a href="#"><span class="fa fa-trophy mr-3"></span> Top Review</a>
           </li>
-          {% if user.is_hr %}
-          
-          <li>
-            <a href="{%url 'HrProfile' request.user.hrprofile.id%}"><span class="fa fa-sign-out mr-3"></span> Profile Settings</a>
-          </li>
-          {%else%}
+          {% if user.is_employee %}
           <li>
             <a href="{%url 'EmployeeProfile' request.user.employee.id%}"><span class="fa fa-sign-out mr-3"></span> Profile Settings</a>
           </li>
+          
+          {%else%}
+            <li>
+              <a href="{%url 'HrProfile' request.user.hrprofile.id%}"><span class="fa fa-sign-out mr-3"></span> Profile Settings</a>
+            </li>
           {%endif%}
           <li>
             <a href="#"><span class="fa fa-support mr-3"></span> Support</a>
