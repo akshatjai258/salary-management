@@ -4,7 +4,7 @@ from django.db import transaction
 from django.forms.utils import ValidationError
 from django.contrib.admin.widgets import AdminDateWidget
 
-from .models import ( User,Employee,hrProfile)
+from .models import ( User,Employee,hrProfile,Leave )
 
 
 class HrSignUpForm(UserCreationForm):
@@ -101,7 +101,6 @@ class EmployeeCreationForm(forms.Form):
         self.fields['password1'].widget.attrs['placeholder'] = 'password'
         self.fields['password2'].widget.attrs['placeholder'] = 'Retype password'
         self.fields['email'].widget.attrs['placeholder'] = 'employee mail-id'
-        self.fields['gender'].widget.attrs['placeholder'] = 'gender'
         self.fields['phone_number'].widget.attrs['placeholder'] = 'employee phone number'
         self.fields['post'].widget.attrs['placeholder'] = 'employee post/job'
         self.fields['department'].widget.attrs['placeholder'] = 'department of employee'
@@ -112,3 +111,15 @@ class EmployeeCreationForm(forms.Form):
         self.fields['first_name'].widget.attrs['placeholder'] = 'employee first name'
         self.fields['last_name'].widget.attrs['placeholder'] = 'employee last name'
 
+class StdLeaveAppForm(forms.ModelForm):
+    class Meta:
+        model = Leave
+
+        fields = ('reason', 'date','to_hr')
+
+        widgets = {
+
+            'reason': forms.TextInput,
+            'to_hr':forms.TextInput(attrs={'class':'form-control','placeholder':'username','id':'to_hrr','type':'hidden'}),
+
+        }

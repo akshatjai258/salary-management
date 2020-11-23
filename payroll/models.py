@@ -10,15 +10,7 @@ class User(AbstractUser):
     is_hr = models.BooleanField(default=False)
 
     
-class Leave(models.Model):
-    date = models.DateField(help_text="date of leave")
-    reason = models.CharField(help_text="reason of leave", max_length=255)
-    user = models.ForeignKey(User,null=True,on_delete=models.CASCADE)
-    accepted = models.BooleanField(default=False)
-    rejected = models.BooleanField(default=False)
-    def __str__(self):
-	    return self.reason
-        
+
 
 class Contact(models.Model):
 	sno=models.AutoField(primary_key=True)
@@ -42,6 +34,14 @@ class hrProfile(models.Model):
     def __str__(self):
 	    return self.full_name
     
+class Leave(models.Model):
+    date = models.DateField(help_text="date of leave")
+    reason = models.CharField(help_text="reason of leave", max_length=255)
+    user = models.ForeignKey(User,null=True,on_delete=models.CASCADE)
+    status = models.CharField(max_length=100,null=True)
+    to_hr = models.ForeignKey(hrProfile,on_delete=models.CASCADE,null=True)
+    def __str__(self):
+	    return self.reason
 
   
 class Employee(models.Model):
@@ -76,5 +76,9 @@ class Holiday(models.Model):
     def __str__(self):
         return self.holiday_name
 
+class LeaveStatus(models.Model):
 
-    
+    leaveApp = models.ForeignKey(Leave,on_delete=models.CASCADE)
+    status = models.CharField(max_length=100,null=True)     
+
+
