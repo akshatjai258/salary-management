@@ -26,6 +26,7 @@ urlpatterns = [
     path('view_list/',views.view_list,name='view_list'),
     path('employee/<int:pk>',views.EmployeeProfile,name='EmployeeProfile'),
     path('hrprofile/<int:pk>',views.HrProfile,name='HrProfile'),
+    path('leaves',views.LeaveList,name='LeaveList'),
     # path('edit_profile/', views.profile, name='edit_profile'),
     
 ]
