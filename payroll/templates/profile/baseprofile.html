@@ -5,7 +5,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-  	
+  	<title>Sidebar 09</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -24,10 +24,10 @@
 					<button type="button" id="sidebarCollapse" class="btn btn-primary">
 	        </button>
         </div>
-	  		<div class="img bg-wrap text-center py-4" style="background-image: url(/../static/images/bg_1.jpg);">
+	  		<div class="img bg-wrap text-center py-4" style="background-image: url(images/bg_1.jpg);">
 	  			<div class="user-logo">
-	  				<div class="img" style="background-image: url(/../static/images/logo.jpg);"></div>
-	  				<h3>{% block name %} {% endblock name %}</h3>
+	  				<div class="img" style="background-image: url(../static/images/logo.jpg);"></div>
+	  				<h3>Catriona Henderson</h3>
 	  			</div>
 	  		</div>
         <ul class="list-unstyled components mb-5">
@@ -43,14 +43,21 @@
           <li>
             <a href="#"><span class="fa fa-trophy mr-3"></span> Top Review</a>
           </li>
+          {% if user.is_hr %}
+          
           <li>
-            <a href="#"><span class="fa fa-cog mr-3"></span> Settings</a>
+            <a href="{%url 'HrProfile' request.user.hrprofile.id%}"><span class="fa fa-sign-out mr-3"></span> Profile Settings</a>
           </li>
+          {%else%}
+          <li>
+            <a href="{%url 'EmployeeProfile' request.user.employee.id%}"><span class="fa fa-sign-out mr-3"></span> Profile Settings</a>
+          </li>
+          {%endif%}
           <li>
             <a href="#"><span class="fa fa-support mr-3"></span> Support</a>
           </li>
           <li>
-            <a href="#"><span class="fa fa-sign-out mr-3"></span> Sign Out</a>
+            <a href="{%url 'handleLogout'%}"><span class="fa fa-sign-out mr-3"></span> Sign Out</a>
           </li>
         </ul>
 
