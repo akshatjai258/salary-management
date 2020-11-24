@@ -12,11 +12,12 @@ class search_user(django_filters.FilterSet):
 
 
 class search_doctor(django_filters.FilterSet):
-    Address=CharFilter(field_name='address',lookup_expr='icontains',label='Address')
+    Department=CharFilter(field_name='department',lookup_expr='icontains',label='Department')
+    post=CharFilter(field_name='post',lookup_expr='icontains',label='Post')
     employee=CharFilter(field_name='full_name',lookup_expr='icontains',label='Employee')
     class Meta:
         model=Employee
-        fields = ['employee','Address']
+        fields = ['employee','Department','post']
         
         
     

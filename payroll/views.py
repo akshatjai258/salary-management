@@ -125,7 +125,7 @@ def handelLogout(request):
     return redirect('home')
 
 def view_list(request):
-    employees=Employee.objects.all()
+    employees=Employee.objects.filter(parent_hr=request.user.hrprofile)
     myFilter1=search_doctor(request.GET,queryset=employees)
 
     employees=myFilter1.qs
