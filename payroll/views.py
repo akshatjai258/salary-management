@@ -269,7 +269,7 @@ def ShowApp(request):
     
     hr = hrProfile.objects.filter(user=request.user).first()
     
-    print(app)
+    
     
     app2 = Leave.objects.filter(id=request.POST.get('answer')).all()
 
@@ -279,6 +279,7 @@ def ShowApp(request):
         items.save()
 
     app = Leave.objects.filter(to_hr = hr).all()
+    print(app)
     context = { 'app':app }
 
     return render(request,'leave/ShowApp.html',context)
