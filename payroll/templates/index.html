@@ -18,7 +18,6 @@
 
     <!-- Bootstrap CSS -->
   
-	<script src="{% static 'doctor/js/jquery.js' %}"></script>
 
 	
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -26,8 +25,7 @@
     
    <title>{% block title %}{% endblock %}</title>
    
-   <link rel="stylesheet" href="{% static 'doctor/bootstrap/css/bootstrap.min.css' %}">
-   <link rel="stylesheet" href="{% static 'doctor/css/css.css' %}">
+  
    {% block head %} {% endblock head %}
   </head>
 
@@ -45,7 +43,7 @@
 				<li class="nav-item {% block home_active %} {%endblock home_active %}">
 					<a class="nav-link" href="{%url 'home'%}">Home <span class="sr-only">(current)</span></a>
 				</li>
-				<li class="nav-item {% block about_active %} {%endblock about_active %}">
+				<li class="nav-item {% block support_active %} {%endblock support_active %}">
 					<a class="nav-link" href="{%url 'payment'%}">Support Us</a>
 				</li>
 

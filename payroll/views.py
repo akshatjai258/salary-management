@@ -10,7 +10,7 @@ from .models import Leave, Employee,hrProfile,Contact
 from django.views.generic import TemplateView,CreateView,DetailView
 from .forms import *
 from .filters import *
-from .templatetags import doctor_extras
+from .templatetags import extras
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 
@@ -104,7 +104,7 @@ def view_list(request):
     else:
         employees=Employee.objects.filter(parent_hr=request.user.employee.parent_hr)
 
-    myFilter1=search_doctor(request.GET,queryset=employees)
+    myFilter1=search_employee(request.GET,queryset=employees)
 
     employees=myFilter1.qs
     paginated_list=Paginator(employees,2)
@@ -231,10 +231,7 @@ def EmployeeSignup(request):
                         
 
 
-def LeaveList(request):
-    leaves=Leave.objects.all()
-    # print(f"{leaves}gggggggggggggggggggggggggggggg")
-    return render(request,'payroll/Leave.html',{'leaves':leaves})
+
 
 
 
@@ -283,7 +280,7 @@ def ShowApp(request):
         items.save()
 
     app = Leave.objects.filter(to_hr = hr).all()
-    print(app)
+    
     context = { 'app':app }
 
     return render(request,'leave/ShowApp.html',context)

@@ -18,9 +18,7 @@ def home(request):
 
 	return render(request,'main/home.html')
 	
-def about(request):
-	# return HttpResponse('hr')
-	return render(request,'main/about.html')
+
 	
 def contact(request):
 	# name=request.post['name']

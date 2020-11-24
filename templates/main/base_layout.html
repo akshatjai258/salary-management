@@ -37,29 +37,29 @@
 	  		</div>
         <ul class="list-unstyled components mb-5">
           <li>
-              <a href="{% url 'view_list' %}"><span class="fa fa-download mr-3 notif"><small class="d-flex align-items-center justify-content-center">5</small></span> Search</a>
+              <a href="{% url 'view_list' %}"><span class="fa fa-search mr-3 notif"></span> Search</a>
           </li>
           {% if user.is_employee %}
           <li>
-            <a href="{% url 'takeleave' %}"><span class="fa fa-gift mr-3"></span>Leave status</a>
+            <a href="{% url 'takeleave' %}"><span class="fa fa-info-circle mr-3"></span>Leave status</a>
           </li>
           {% else %}
           <li>
-            <a href="{% url 'Showapp' %}"><span class="fa fa-gift mr-3"></span>Leave requests</a>
+            <a href="{% url 'Showapp' %}"><span class="fa fa-sticky-note mr-3"></span>Leave requests</a>
           </li>
           {% endif %}
 
           <li>
-            <a href="{% url 'edit_profile' %}"><span class="fa fa-trophy mr-3"></span> Edit profile </a>
+            <a href="{% url 'edit_profile' %}"><span class="fa fa-edit mr-3"></span> Edit profile </a>
           </li>
           {% if user.is_employee %}
           <li>
-            <a href="{%url 'EmployeeProfile' request.user.employee.id%}"><span class="fa fa-sign-out mr-3"></span> View profile</a>
+            <a href="{%url 'EmployeeProfile' request.user.employee.id%}"><span class="fa fa-user-o mr-3"></span> View profile</a>
           </li>
           
           {%else%}
             <li>
-              <a href="{%url 'HrProfile' request.user.hrprofile.id%}"><span class="fa fa-sign-out mr-3"></span> View Profile</a>
+              <a href="{%url 'HrProfile' request.user.hrprofile.id%}"><span class="fa fa-user-o mr-3"></span> View Profile</a>
             </li>
           {%endif%}
           <li>
