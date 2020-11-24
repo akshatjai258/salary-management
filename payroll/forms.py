@@ -146,4 +146,4 @@ class EmployeeUpdateForm(forms.ModelForm):
     class Meta:
         model = Employee
         fields = '__all__'
-        exclude=['user','parent_hr']
+        exclude=['user','parent_hr','department','post','epf_deduction','allowances_per_month','base_salary','esi_deduction']
