@@ -19,7 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from . import views
 from django.contrib.auth import views as auth_views
-from payroll.views import SignUpView,EmployeeSignUpView,HrSignUpView,HrSignup,EmployeeSignup
+from payroll.views import HrSignup,EmployeeSignup
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,7 +29,6 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/signup/', SignUpView.as_view(), name='signup'),
     path('accounts/signup/employee/', EmployeeSignup, name='employee_signup'),
     path('accounts/signup/hr/', HrSignup, name='hr_signup'),
     path('reset_password/',auth_views.PasswordResetView.as_view(template_name="main/password_reset.html"),name="reset_password"),

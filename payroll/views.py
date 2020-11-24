@@ -19,42 +19,16 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
+from django.template import loader
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 
 
-class SignUpView(TemplateView):
-    template_name = 'registration/signup.html'
 
 
-class EmployeeSignUpView(CreateView):
-    model = User
-    form_class = EmployeeSignUpForm
-    template_name = 'registration/signup_form.html'
 
-    def get_context_data(self, **kwargs):
-        kwargs['user_type'] = 'employee'
-        return super().get_context_data(**kwargs)
-
-    def form_valid(self, form):
-        user = form.save()
-        login(self.request, user)
-        return redirect('home')
-
-
-class HrSignUpView(CreateView):
-    model = User
-    form_class = HrSignUpForm
-    template_name = 'registration/signup_form.html'
-
-    def get_context_data(self, **kwargs):
-        kwargs['user_type'] = 'hr'
-        return super().get_context_data(**kwargs)
-
-    def form_valid(self, form):
-        user = form.save()
-        login(self.request, user)
-        return redirect('home')
 
 
 def HrProfile(request,pk):
@@ -159,6 +133,10 @@ def HrSignup(request):
                     user.save()
                     hr = hrProfile(user = user,full_name=full_name,phone_number=phone_number,address=address,company_name=company_name,year_of_registration=year_of_registration)
                     hr.save()
+                    html_message = loader.render_to_string('main/email_regis.html',{'name':full_name})
+                    message = 'Mano'
+                    send_mail('Greetings from Mano!',message,settings. EMAIL_HOST_USER,[str(email)],fail_silently=True,html_message=html_message)
+     
                     messages.success(request,'company registered sucessfully')
                     print("company created")
 
@@ -209,6 +187,9 @@ def EmployeeSignup(request):
                         parent_hr = current_hr.hrprofile
                         employee = Employee(user = user,full_name=full_name,phone_number=phone_number,parent_hr=parent_hr,epf_deduction=epf_deduction,esi_deduction=esi_deduction,department=department,post=post,allowances_per_month=allowances_per_month,base_salary=base_salary,)
                         employee.save()
+                        html_message = loader.render_to_string('main/email_add.html',{'name':full_name,'company':parent_hr.company_name,'company_admin':parent_hr.full_name})
+                        message = 'Mano'
+                        send_mail('Greetings from Mano!',message,settings. EMAIL_HOST_USER,[str(email)],fail_silently=True,html_message=html_message)
                         messages.success(request,'employee added sucessfully')
                         print("employee added")
                     
