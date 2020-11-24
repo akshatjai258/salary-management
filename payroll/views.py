@@ -99,7 +99,11 @@ def handelLogout(request):
     return redirect('home')
 
 def view_list(request):
-    employees=Employee.objects.filter(parent_hr=request.user.hrprofile)
+    if request.user.is_hr:
+        employees=Employee.objects.filter(parent_hr=request.user.hrprofile)
+    else:
+        employees=Employee.objects.filter(parent_hr=request.user.employee.parent_hr)
+
     myFilter1=search_doctor(request.GET,queryset=employees)
 
     employees=myFilter1.qs
@@ -289,7 +293,7 @@ def StatusOfApp(request):
 
     employee = Employee.objects.filter(user=request.user).first()
 
-    app = Leave.objects.filter(user=employee.user).all().order_by(-id)
+    app = Leave.objects.filter(user=employee.user).all()
 
     context = { 'app':app }
 

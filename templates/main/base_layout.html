@@ -65,6 +65,14 @@
           <li>
             <a href="{%url 'handleLogout'%}"><span class="fa fa-sign-out mr-3"></span> Sign Out</a>
           </li>
+          {% if user.is_hr %}
+          <li>
+            <a href="{%url 'employee_signup'%}"><span class="fa fa-plus mr-3"></span> Add Employee</a>
+          </li>
+          {%endif%}
+
+
+
         </ul>
 
     	</nav>
