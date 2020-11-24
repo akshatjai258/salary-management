@@ -5,14 +5,14 @@
 
 {% block body %}
 
-{{user.username}} write you application :
+{{user.username}} Write your application :
 
 
 <div class="row box2">
 
 	<div class="col-md-5 box1">
 
-	<center><h1 style="font-family:bold;color:black;margin-bottom:50px">You Leave Application </h1></center>
+	<center><h1 style="font-family:bold;color:black;margin-bottom:50px">Your Leave Application </h1></center>
 	<br>
 
     <form method="post" novalidate>
@@ -29,7 +29,7 @@
 <script>
 
 
-    var name="{{user.hrProfile}}"
+    var name="{{user.employee.parent_hr.id}}"
     document.getElementById("to_hrr").value=name;
 
 

@@ -65,14 +65,6 @@ class Employee(models.Model):
         return self.full_name
 
 
-class Holiday(models.Model):
-    date = models.DateField(help_text="a holiday of the year",null=True)
-    holiday_name = models.CharField(default="National holiday",null=True, help_text="the name of the holiday", max_length=50)
-    description = models.CharField(default="nationally celebrated",null=True, help_text="the reason for the holiday", max_length=255)
-    parent_hr = models.ForeignKey(hrProfile,null=True,on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.holiday_name
 
 class LeaveStatus(models.Model):
 

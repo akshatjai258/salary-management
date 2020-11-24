@@ -6,7 +6,7 @@ from django.views.generic import DetailView, CreateView, UpdateView
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.models import auth
 from django.contrib.auth.forms import UserCreationForm
-from .models import Leave, Holiday, Employee,hrProfile,Contact
+from .models import Leave, Employee,hrProfile,Contact
 from django.views.generic import TemplateView,CreateView,DetailView
 from .forms import *
 from .filters import *
@@ -273,7 +273,7 @@ def Tpage(request):
 def ShowApp(request): 
     
     hr = hrProfile.objects.filter(user=request.user).first()
-    app = Leave.objects.filter(to_hr = hr).all()
+    
     print(app)
     
     app2 = Leave.objects.filter(id=request.POST.get('answer')).all()
@@ -283,6 +283,7 @@ def ShowApp(request):
         items.status = request.POST.get('status')
         items.save()
 
+    app = Leave.objects.filter(to_hr = hr).all()
     context = { 'app':app }
 
     return render(request,'leave/ShowApp.html',context)
@@ -292,7 +293,7 @@ def StatusOfApp(request):
 
     employee = Employee.objects.filter(user=request.user).first()
 
-    app = Leave.objects.filter(user=employee.user).all()
+    app = Leave.objects.filter(user=employee.user).all().order_by(-id)
 
     context = { 'app':app }
 
