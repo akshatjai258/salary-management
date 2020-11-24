@@ -66,26 +66,40 @@ def HrProfile(request,pk):
     return render(request,'profile/hrProfile.html',context)
 
 
-# def profile(request):
-#   if request.method == 'POST':
-#       u_form = UserUpdateForm(request.POST, instance=request.user)
-#       d_form = EmployeeUpdateForm(request.POST,request.FILES,instance=request.user.doctor)
-#       if u_form.is_valid() and d_form.is_valid():
-#           u_form.save()
-#           d_form.save()
-#           messages.success(request, f'Your account has been updated!')
-#           return redirect("home")
+def profile(request):
+    if request.user.is_hr:
+        if request.method == 'POST':
+            u_form=UserUpdateForm(request.POST, instance=request.user)
+            hr_form = HrUpdateForm(request.POST,request.FILES,instance=request.user.hrprofile)
+            if hr_form.is_valid() and u_form.is_valid():
+                hr_form.save()
+                u_form.save()
+                messages.success(request, f'Your account has been updated!')
+                return redirect("home") 
+        else:
 
-#   else:
-#       u_form = UserUpdateForm(instance=request.user)
-#       d_form = UpdateProfileForm(instance=request.user.doctor)
+            hr_form = HrUpdateForm(instance=request.user.hrprofile) 
+            u_form=UserUpdateForm(instance=request.user)
 
-#   context = {
-#       'u_form': u_form,
-#       'd_form': d_form
-#   }
-
-#   return render(request, 'profile/editemployee.html', context)
+        context = {
+            'hr_form': hr_form,
+            'u_form': u_form
+        }   
+        return render(request, 'profile/edithr.html', context)
+    else:
+        if request.method == 'POST':
+            emp_form = EmployeeUpdateForm(request.POST,request.FILES,instance=request.user.employee)
+            if emp_form.is_valid():
+                emp_form.save()
+                messages.success(request, f'Your account has been updated!')
+                return redirect("home") 
+        else:
+            emp_form = EmployeeUpdateForm(instance=request.user.employee) 
+        context = {
+            'emp_form': emp_form
+        }   
+        return render(request, 'profile/editemployee.html', context)
+        
 
 
 

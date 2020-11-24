@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
 from django.forms.utils import ValidationError
 from django.contrib.admin.widgets import AdminDateWidget
-
+from django.contrib.auth.forms import UserCreationForm
 from .models import ( User,Employee,hrProfile,Leave )
 
 
@@ -123,3 +123,27 @@ class StdLeaveAppForm(forms.ModelForm):
             'to_hr':forms.TextInput(attrs={'class':'form-control','placeholder':'username','id':'to_hrr','type':'hidden'}),
 
         }
+
+class UserUpdateForm(forms.ModelForm):
+	
+  email = forms.EmailField()
+	
+  class Meta:
+      model = User
+      fields = ['username', 'email']
+
+
+class HrUpdateForm(forms.ModelForm):
+    profile_pic = forms.ImageField(widget=forms.FileInput,)
+    class Meta:
+        model = hrProfile
+        fields = '__all__'
+        exclude=['user']
+
+
+class EmployeeUpdateForm(forms.ModelForm):
+    profile_pic = forms.ImageField(widget=forms.FileInput,)
+    class Meta:
+        model = Employee
+        fields = '__all__'
+        exclude=['user','parent_hr']
