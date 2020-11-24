@@ -25,7 +25,7 @@ class Contact(models.Model):
 class hrProfile(models.Model):
     user=models.OneToOneField(User,null=True,on_delete=models.CASCADE)
     full_name = models.CharField(max_length=50,null = True)
-    profile_pic=models.ImageField(upload_to='images/profile', blank = True, default='images/profile/default2.jpeg')
+    profile_pic=models.ImageField(upload_to='images/profile', blank = True, default='images/profile/default2.jpg')
     phone_number = models.CharField(max_length=12,null=True,blank=True)
     address=models.TextField(blank = True, max_length=255)
     company_name = models.CharField(max_length=255,blank=True,null=True)
