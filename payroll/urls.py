@@ -31,6 +31,6 @@ urlpatterns = [
     path('viewleave',views.Tpage ,name='view_leave'),
     path('Showapp',views.ShowApp,name='Showapp'),
     path('leave_response',views.StatusOfApp,name='leave_response'),
-    # path('edit_profile/', views.profile, name='edit_profile'),
+    path('edit_profile/', views.profile, name='edit_profile'),
     
 ]
