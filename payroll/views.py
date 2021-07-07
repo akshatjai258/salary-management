@@ -168,7 +168,7 @@ def HrSignup(request):
             return render(request,'registration/signup_form.html',{'form':form})
 
 def EmployeeSignup(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and request.user.is_hr:
         if request.method == 'GET':
             form = EmployeeCreationForm()
             return render(request,'registration/signup_employee.html',{'form':form})
@@ -211,7 +211,7 @@ def EmployeeSignup(request):
                         messages.success(request,'employee added sucessfully')
                         print("employee added")
                     
-                    return redirect('login')
+                    return redirect('home')
 
                 else:
                     messages.info(request,"enter same password for both fields")
@@ -235,11 +235,7 @@ def EmployeeSignup(request):
 
 
 
-def Stpage(request):
-
-    employee = Employee.objects.filter(user=request.user).first()
-
-
+def Stpage(request): #take leave dashboard by emplyee
     return render(request,'leave/stpage.html')
 
                 

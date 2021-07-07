@@ -9,8 +9,6 @@ class User(AbstractUser):
     is_employee = models.BooleanField(default=False)
     is_hr = models.BooleanField(default=False)
 
-    
-
 
 class Contact(models.Model):
 	sno=models.AutoField(primary_key=True)
